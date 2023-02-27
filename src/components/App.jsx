@@ -17,6 +17,26 @@ export default class App extends Component {
     filter: '',
   };
 
+  componentDidMount() {
+    // console.log('DidMount');
+    const contacts = localStorage.getItem('contacts');
+    // console.log(contacts);
+    const parsedContacts = JSON.parse(contacts);
+    // console.log(parsedContacts);
+
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // console.log('componentDidUpdate');
+    if (this.state.contacts !== prevState.contacts) {
+      // console.log('Обновилось поле');
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
   formSubmitHandler = data => {
     // console.log(data);
   };
@@ -55,26 +75,6 @@ export default class App extends Component {
       contacts: prevState.contacts.filter(contact => contact.id !== contactId),
     }));
   };
-
-  componentDidMount() {
-    // console.log('DidMount');
-    const contacts = localStorage.getItem('contacts');
-    // console.log(contacts);
-    const parsedContacts = JSON.parse(contacts);
-    // console.log(parsedContacts);
-
-    if (parsedContacts) {
-      this.setState({ contacts: parsedContacts });
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    // console.log('componentDidUpdate');
-    if (this.state.contacts !== prevState.contacts) {
-      // console.log('Обновилось поле');
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-    }
-  }
 
   render() {
     const filteredContacts = this.getFilteredContacts();
