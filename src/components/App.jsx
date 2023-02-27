@@ -57,7 +57,7 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    console.log('DidMount');
+    // console.log('DidMount');
     const contacts = localStorage.getItem('contacts');
     // console.log(contacts);
     const parsedContacts = JSON.parse(contacts);
